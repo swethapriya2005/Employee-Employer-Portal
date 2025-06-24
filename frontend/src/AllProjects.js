@@ -104,20 +104,27 @@ const AllProjects = () => {
             <p><strong>Role:</strong> {p.role}</p>
             <p><strong>Team Size:</strong> {p.team_size}</p>
             <p><strong>Project Link:</strong> <a href={p.project_link} target="_blank" rel="noreferrer" style={styles.link}>{p.project_link}</a></p>
-            {p.project_document && (
-              <a href={`http://localhost:5000/uploads/project_documents/${p.project_document}`} download style={styles.downloadLink}>
-                📄 Download Document
-              </a>
-            )}
-            <button
-              style={styles.contactBtn}
-              onClick={() => {
-                setSelectedContact(p);
-                setShowModal(true);
-              }}
-            >
-              📧 Contact
-            </button>
+
+            <div style={styles.buttonRow}>
+              {p.project_document && (
+                <a
+                  href={`http://localhost:5000/uploads/project_documents/${p.project_document}`}
+                  download
+                  style={styles.downloadLink}
+                >
+                  📄 Download
+                </a>
+              )}
+              <button
+                style={styles.contactBtn}
+                onClick={() => {
+                  setSelectedContact(p);
+                  setShowModal(true);
+                }}
+              >
+                📧 Contact
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -229,27 +236,33 @@ const styles = {
     textDecoration: 'underline',
     wordBreak: 'break-word',
   },
-  downloadLink: {
+  buttonRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
     marginTop: '1rem',
-    display: 'inline-block',
-    padding: '0.5rem 1rem',
+    gap: '0.5rem',
+  },
+  downloadLink: {
+    flex: 1,
+    textAlign: 'center',
+    padding: '0.5rem 0.8rem',
     borderRadius: '6px',
     backgroundColor: '#f1c40f',
     color: '#000',
     fontWeight: 'bold',
     textDecoration: 'none',
+    display: 'inline-block',
   },
   contactBtn: {
-    marginTop: '1rem',
-    padding: '0.6rem 1.2rem',
+    flex: 1,
+    padding: '0.5rem 0.8rem',
     backgroundColor: '#4CAF50',
     color: 'white',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '6px',
     fontWeight: 'bold',
     cursor: 'pointer',
-    display: 'block',
-    width: '100%',
+    textAlign: 'center',
   },
   pagination: {
     marginTop: '2rem',
