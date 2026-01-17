@@ -18,9 +18,7 @@ const AllProjects = () => {
   useEffect(() => {
     fetch('http://localhost:5000/api/jobSeekerProjects')
       .then((res) => res.json())
-      .then((data) => {
-        setProjects(data.projects || []);
-      })
+      .then((data) => setProjects(data.projects || []))
       .catch((err) => console.error('Error fetching:', err));
   }, []);
 
@@ -137,8 +135,8 @@ const AllProjects = () => {
               onClick={() => setCurrentPage(i + 1)}
               style={{
                 ...styles.pageButton,
-                backgroundColor: currentPage === i + 1 ? '#fff' : '#ddd',
-                color: currentPage === i + 1 ? '#000' : '#333',
+                backgroundColor: currentPage === i + 1 ? '#2563eb' : '#fff',
+                color: currentPage === i + 1 ? '#fff' : '#2563eb',
               }}
             >
               {i + 1}
@@ -181,16 +179,16 @@ const AllProjects = () => {
 const styles = {
   container: {
     padding: '2rem',
-    background: 'linear-gradient(to right, #6a11cb, #2575fc)',
+    backgroundColor: '#f8fafc', // matches Welcome page
     minHeight: '100vh',
-    fontFamily: 'Arial, sans-serif',
+    fontFamily: 'Inter, Arial, sans-serif',
   },
   heading: {
     fontSize: '2.5rem',
-    color: '#fff',
+    color: '#0f172a',
     textAlign: 'center',
     marginBottom: '2rem',
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   filters: {
     display: 'flex',
@@ -201,18 +199,18 @@ const styles = {
   },
   input: {
     padding: '0.75rem 1rem',
-    borderRadius: '10px',
-    border: '1px solid #ccc',
+    borderRadius: '8px',
+    border: '1px solid #cbd5e1',
     minWidth: '180px',
     fontSize: '1rem',
   },
   resetBtn: {
     padding: '0.75rem 1.2rem',
-    backgroundColor: '#f44336',
+    backgroundColor: '#2563eb', // primary color like Welcome page
     color: '#fff',
-    borderRadius: '10px',
+    borderRadius: '8px',
     border: 'none',
-    fontWeight: 'bold',
+    fontWeight: '700',
     cursor: 'pointer',
   },
   grid: {
@@ -221,18 +219,19 @@ const styles = {
     gap: '1.5rem',
   },
   card: {
-    background: '#ffffff',
+    background: '#fff', // matches Welcome page cards
     padding: '1.5rem',
-    borderRadius: '16px',
-    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+    borderRadius: '14px',
+    boxShadow: '0 10px 25px rgba(0,0,0,0.08)',
   },
   title: {
     fontSize: '1.5rem',
     marginBottom: '0.75rem',
-    color: '#2c3e50',
+    color: '#2563eb',
+    fontWeight: '700',
   },
   link: {
-    color: '#3498db',
+    color: '#2563eb',
     textDecoration: 'underline',
     wordBreak: 'break-word',
   },
@@ -246,21 +245,21 @@ const styles = {
     flex: 1,
     textAlign: 'center',
     padding: '0.5rem 0.8rem',
-    borderRadius: '6px',
+    borderRadius: '8px',
     backgroundColor: '#f1c40f',
     color: '#000',
-    fontWeight: 'bold',
+    fontWeight: '700',
     textDecoration: 'none',
     display: 'inline-block',
   },
   contactBtn: {
     flex: 1,
     padding: '0.5rem 0.8rem',
-    backgroundColor: '#4CAF50',
-    color: 'white',
+    backgroundColor: '#4ade80',
+    color: '#0f172a',
     border: 'none',
-    borderRadius: '6px',
-    fontWeight: 'bold',
+    borderRadius: '8px',
+    fontWeight: '700',
     cursor: 'pointer',
     textAlign: 'center',
   },
@@ -274,7 +273,8 @@ const styles = {
     borderRadius: '30px',
     border: 'none',
     cursor: 'pointer',
-    fontWeight: 'bold',
+    fontWeight: '700',
+    border: '1px solid #2563eb',
   },
   modalOverlay: {
     position: 'fixed',
@@ -282,7 +282,7 @@ const styles = {
     left: 0,
     width: '100vw',
     height: '100vh',
-    backgroundColor: 'rgba(0,0,0,0.8)',
+    backgroundColor: 'rgba(15,23,42,0.8)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -294,34 +294,35 @@ const styles = {
     borderRadius: '12px',
     width: '320px',
     textAlign: 'center',
-    boxShadow: '0 0 20px rgba(0,0,0,0.2)',
+    boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
   },
   closeBtn: {
     marginTop: '1rem',
     padding: '0.5rem 1rem',
-    backgroundColor: '#e74c3c',
+    backgroundColor: '#ef4444',
     color: '#fff',
     border: 'none',
-    borderRadius: '6px',
+    borderRadius: '8px',
     cursor: 'pointer',
+    fontWeight: '700',
   },
   textArea: {
     width: '100%',
     minHeight: '80px',
     padding: '10px',
     marginTop: '1rem',
-    borderRadius: '6px',
-    border: '1px solid #ccc',
+    borderRadius: '8px',
+    border: '1px solid #cbd5e1',
     fontSize: '1rem',
   },
   notifyBtn: {
     marginTop: '1rem',
     padding: '0.5rem 1rem',
-    backgroundColor: '#2980b9',
+    backgroundColor: '#2563eb',
     color: '#fff',
     border: 'none',
-    borderRadius: '6px',
-    fontWeight: 'bold',
+    borderRadius: '8px',
+    fontWeight: '700',
     cursor: 'pointer',
   },
 };

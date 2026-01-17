@@ -10,6 +10,7 @@ function Login() {
   });
 
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false); // toggle password visibility
   const navigate = useNavigate();
 
   const validate = (vals) => {
@@ -39,37 +40,33 @@ function Login() {
         .then((res) => {
           if (res.data.status === 'success') {
             localStorage.setItem('loggedIn', 'true');
-            localStorage.setItem('role', values.role); // optionally store role
+            localStorage.setItem('role', values.role);
 
             alert('Login successful!');
-            if (values.role === 'employee') {
-              navigate('/employee-profile');
-            } else {
-              navigate('/employer-dashboard');
-            }
+            navigate(values.role === 'employee' ? '/employee-profile' : '/employer-dashboard');
           } else {
-            alert('Invalid credentials. Please try again.');
+            alert('Invalid credentials.');
           }
         })
-        .catch((err) => {
-          console.error('Login error:', err);
-          alert('Something went wrong. Please try again.');
-        });
+        .catch(() => alert('Something went wrong.'));
     }
   };
 
   return (
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={{
+        background: 'linear-gradient(to right, #020617, #0f172a)',
+      }}
+    >
       <div
-  className="d-flex justify-content-center align-items-center vh-100"
-  style={{
-    background: 'linear-gradient(to right, #6a11cb, #2575fc)',
-  }}
->
-
-      <div className="bg-white p-4 rounded w-45 w-sm-75 w-md-50 w-lg-25 position-relative">
-
-      
-
+        className="bg-white p-4 rounded position-relative"
+        style={{
+          width: '360px',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
+        }}
+      >
+        {/* Close Button */}
         <button
           onClick={() => navigate('/')}
           style={{
@@ -79,96 +76,149 @@ function Login() {
             background: 'transparent',
             border: 'none',
             fontSize: '1.8rem',
-            fontWeight: 'bold',
             cursor: 'pointer',
-            color: '#333',
+            color: '#64748b',
           }}
-          aria-label="Close Login Form"
-          title="Close"
         >
           &times;
         </button>
 
-        <h2 className="mb-4 text-center">Login</h2>
+        <h2 className="mb-4 text-center" style={{ color: '#0f172a' }}>
+          Login
+        </h2>
 
         <form onSubmit={handleSubmit} noValidate>
 
-          {/* Email Field */}
+          {/* Email */}
           <div className="mb-3">
-            <label htmlFor="email" className="form-label"><strong>Email</strong></label>
+            <label className="form-label fw-semibold">Email</label>
             <input
-              id="email"
               type="email"
               name="email"
-              placeholder="Email"
               value={values.email}
               onChange={handleInput}
-              className={`form-control rounded-0 ${errors.email ? 'is-invalid' : ''}`}
+              className={`form-control ${errors.email ? 'is-invalid' : ''}`}
             />
             {errors.email && <div className="invalid-feedback">{errors.email}</div>}
           </div>
 
-          {/* Password Field */}
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label"><strong>Password</strong></label>
+          {/* Password with eye toggle */}
+          <div className="mb-3 position-relative">
+            <label className="form-label fw-semibold">Password</label>
             <input
-              id="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="password"
-              placeholder="Password"
               value={values.password}
               onChange={handleInput}
-              className={`form-control rounded-0 ${errors.password ? 'is-invalid' : ''}`}
+              className={`form-control ${errors.password ? 'is-invalid' : ''}`}
             />
             {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+
+            {/* Eye Icon: appears only if user typed a password */}
+            {values.password && (
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  right: '10px',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer',
+                  width: '24px',
+                  height: '24px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {showPassword ? (
+                  // Open Eye SVG
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                ) : (
+                  // Closed Eye SVG
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M17.94 17.94A10.92 10.92 0 0 1 12 20c-7 0-11-8-11-8a21.64 21.64 0 0 1 5.47-6.16" />
+                    <path d="M1 1l22 22" />
+                    <path d="M10.47 10.47a3 3 0 0 0 4.24 4.24" />
+                  </svg>
+                )}
+              </span>
+            )}
           </div>
 
-          {/* Role Dropdown */}
+          {/* Role */}
           <div className="mb-3">
-            <label htmlFor="role" className="form-label"><strong>Role</strong></label>
+            <label className="form-label fw-semibold">Role</label>
             <select
-              id="role"
               name="role"
               value={values.role}
               onChange={handleInput}
-              className={`form-select rounded-0 ${errors.role ? 'is-invalid' : ''}`}
+              className={`form-select ${errors.role ? 'is-invalid' : ''}`}
             >
-
-              <option  value="Select a Role">Select a role</option>
+              <option value="">Select role</option>
               <option value="employee">Employee</option>
               <option value="employer">Employer</option>
             </select>
+            {errors.role && <div className="invalid-feedback">{errors.role}</div>}
           </div>
 
-          {/* Submit Button */}
-      
+          {/* Login Button */}
           <button
-  type="submit"
-  className="w-100 mb-3 text-white border-0"
-  style={{
-    background: 'linear-gradient(to right, #6a11cb, #2575fc)',
-    padding: '10px',
-    borderRadius: '4px',
-    fontWeight: 'bold',
-  }}
->
-  Log in
-</button>
+            type="submit"
+            className="w-100 text-white border-0 mb-3"
+            style={{
+              background: '#2563eb',
+              padding: '10px',
+              borderRadius: '8px',
+              fontWeight: '600',
+            }}
+          >
+            Log in
+          </button>
 
-
-          <p className="text-center small">
-            By logging in, you agree to our terms and conditions.
+          <p className="text-center small text-muted">
+            By logging in, you agree to our terms.
           </p>
 
+          {/* Forgot Password */}
+          <div className="text-center mb-3">
+            <Link to="/forgot-password" className="small text-decoration-none" style={{ color: '#2563eb' }}>
+              Forgot Password?
+            </Link>
+          </div>
 
-           {/* Forgot Password Link */}
-        <div className="mb-3 d-flex justify-content-center">
-  <Link to="/forgot-password" className="small text-decoration-none text-primary">
-    Forgot Password?
-  </Link>
-</div>
-
-          <Link to="/signup" className="btn btn-outline-secondary w-100 rounded-0">
+          {/* Signup */}
+          <Link
+            to="/signup"
+            className="btn w-100"
+            style={{
+              border: '2px solid #2563eb',
+              color: '#2563eb',
+              borderRadius: '8px',
+              fontWeight: '600',
+            }}
+          >
             Create Account
           </Link>
         </form>

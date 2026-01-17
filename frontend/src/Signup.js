@@ -9,21 +9,19 @@ function Signup() {
     email: '',
     password: '',
     confirmPassword: '',
-    role: '' // added role with default value
+    role: ''
   });
+
   const [errors, setErrors] = useState({});
   const [successMsg, setSuccessMsg] = useState('');
   const navigate = useNavigate();
 
-  const handleInput = (event) => {
-    setValues(prev => ({
-      ...prev,
-      [event.target.name]: event.target.value
-    }));
+  const handleInput = (e) => {
+    setValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const validationErrors = Validation(values);
     setErrors(validationErrors);
     setSuccessMsg('');
@@ -31,42 +29,34 @@ function Signup() {
     if (Object.keys(validationErrors).length === 0) {
       axios.post('http://localhost:5000/signup', values)
         .then(res => {
-          console.log(res.data);
           if (res.data.status === "success") {
             setSuccessMsg('Signup successful! Redirecting...');
-            setTimeout(() => {
-              navigate('/welcome');
-            }, 1500);
+            setTimeout(() => navigate('/login'), 1500);
           } else {
             alert("Signup failed");
           }
         })
-        .catch(err => {
-          console.error(err);
-          alert("Error during signup");
-        });
+        .catch(() => alert("Error during signup"));
     }
   };
 
   return (
-        <div
-  className="d-flex justify-content-center align-items-center vh-100"
-  style={{
-    background: 'linear-gradient(to right, #6a11cb, #2575fc)',
-  }}
->
-
-
-
-
-
-
-<div className="bg-white p-4 rounded w-20 w-sm-30 w-md-50 w-lg-125 position-relative">
-
-
-        {/* Cross Button */}
+    <div
+      className="d-flex justify-content-center align-items-center vh-100"
+      style={{
+        background: 'linear-gradient(to right, #020617, #0f172a)',
+      }}
+    >
+      <div
+        className="bg-white p-4 rounded position-relative"
+        style={{
+          width: '380px',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
+        }}
+      >
+        {/* Close */}
         <button
-          onClick={() => navigate('/welcome')}
+          onClick={() => navigate('/')}
           style={{
             position: 'absolute',
             top: '10px',
@@ -74,111 +64,120 @@ function Signup() {
             background: 'transparent',
             border: 'none',
             fontSize: '1.8rem',
-            fontWeight: 'bold',
             cursor: 'pointer',
-            color: '#333',
+            color: '#64748b',
           }}
-          aria-label="Close Signup Form"
-          title="Close"
         >
           &times;
         </button>
 
-        <h2 className="mb-4 text-center">Signup</h2>
+        <h2 className="mb-4 text-center" style={{ color: '#0f172a' }}>
+          Signup
+        </h2>
+
         <form onSubmit={handleSubmit}>
+
+          {/* Name */}
           <div className="mb-3">
-            <label htmlFor="name"><strong>Name</strong></label>
+            <label className="form-label fw-semibold">Name</label>
             <input
-              id="name"
               type="text"
-              placeholder="Enter name"
               name="name"
-              className="form-control rounded-0"
               value={values.name}
               onChange={handleInput}
+              className="form-control"
             />
-            {errors.name && <span className="text-danger">{errors.name}</span>}
+            {errors.name && <div className="text-danger small">{errors.name}</div>}
           </div>
 
+          {/* Email */}
           <div className="mb-3">
-            <label htmlFor="email"><strong>Email</strong></label>
+            <label className="form-label fw-semibold">Email</label>
             <input
-              id="email"
               type="email"
-              placeholder="Enter email"
               name="email"
-              className="form-control rounded-0"
               value={values.email}
               onChange={handleInput}
+              className="form-control"
             />
-            {errors.email && <span className="text-danger">{errors.email}</span>}
+            {errors.email && <div className="text-danger small">{errors.email}</div>}
           </div>
 
+          {/* Password */}
           <div className="mb-3">
-            <label htmlFor="password"><strong>Password</strong></label>
+            <label className="form-label fw-semibold">Password</label>
             <input
-              id="password"
               type="password"
-              placeholder="Enter password"
               name="password"
-              className="form-control rounded-0"
               value={values.password}
               onChange={handleInput}
+              className="form-control"
             />
-            {errors.password && <span className="text-danger">{errors.password}</span>}
+            {errors.password && <div className="text-danger small">{errors.password}</div>}
           </div>
 
+          {/* Confirm Password */}
           <div className="mb-3">
-            <label htmlFor="confirmPassword"><strong>Confirm Password</strong></label>
+            <label className="form-label fw-semibold">Confirm Password</label>
             <input
-              id="confirmPassword"
               type="password"
-              placeholder="Confirm password"
               name="confirmPassword"
-              className="form-control rounded-0"
               value={values.confirmPassword}
               onChange={handleInput}
+              className="form-control"
             />
-            {errors.confirmPassword && <span className="text-danger">{errors.confirmPassword}</span>}
+            {errors.confirmPassword && (
+              <div className="text-danger small">{errors.confirmPassword}</div>
+            )}
           </div>
 
-          {/* Role selection dropdown */}
+          {/* Role */}
           <div className="mb-3">
-            <label htmlFor="role"><strong>Role</strong></label>
+            <label className="form-label fw-semibold">Role</label>
             <select
-              id="role"
               name="role"
               value={values.role}
               onChange={handleInput}
-              className="form-select rounded-0"
+              className="form-select"
             >
-              <option>Select a role</option>
+              <option value="">Select role</option>
               <option value="employee">Employee</option>
               <option value="employer">Employer</option>
             </select>
           </div>
 
-                  <button
-  type="submit"
-  className="w-100 mb-3 text-white border-0"
-  style={{
-    background: 'linear-gradient(to right, #6a11cb, #2575fc)',
-    padding: '10px',
-    borderRadius: '4px',
-    fontWeight: 'bold',
-  }}
->
-  Sign Up
-</button>
+          {/* Signup Button */}
+          <button
+            type="submit"
+            className="w-100 text-white border-0 mb-3"
+            style={{
+              background: '#2563eb',
+              padding: '10px',
+              borderRadius: '8px',
+              fontWeight: '600',
+            }}
+          >
+            Sign Up
+          </button>
 
- {successMsg && <p className="text-success text-center">{successMsg}</p>}
+          {successMsg && (
+            <p className="text-success text-center small">{successMsg}</p>
+          )}
 
-          <p className="text-center small">
-            Already have an account?{' '}
-            <Link to="/login" className="btn btn-outline-secondary w-100 rounded-0 text-decoration-none">
-              Log in
+          <div className="text-center">
+            <Link
+              to="/login"
+              className="btn w-100"
+              style={{
+                border: '2px solid #2563eb',
+                color: '#2563eb',
+                borderRadius: '8px',
+                fontWeight: '600',
+              }}
+            >
+              Already have an account? Login
             </Link>
-          </p>
+          </div>
         </form>
       </div>
     </div>

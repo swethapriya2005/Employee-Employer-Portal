@@ -151,23 +151,24 @@ const JobSeekerForm = ({ goBack }) => {
 const styles = {
   container: {
     padding: '2rem',
-    background: 'linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)',
+    backgroundColor: '#f8fafc', // matches Welcome page background
     minHeight: '100vh',
     display: 'flex',
     justifyContent: 'center',
   },
   card: {
-    background: '#fff',
+    background: '#fff', // card stays white like Welcome page
     borderRadius: '15px',
     padding: '2rem',
     width: '100%',
     maxWidth: '1200px',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+    boxShadow: '0 10px 25px rgba(0,0,0,0.08)', // slightly stronger shadow
   },
   heading: {
     fontSize: '2rem',
     color: '#333',
     textAlign: 'center',
+    fontWeight: '700',
   },
   centerHeading: {
     gridColumn: '1 / -1',
@@ -175,11 +176,12 @@ const styles = {
     color: '#2d3436',
     marginBottom: '1rem',
     textAlign: 'center',
+    fontWeight: '700',
   },
   subHeading: {
     fontSize: '1.5rem',
     color: '#333',
-    borderBottom: '2px solid gold',
+    borderBottom: '2px solid #2563eb', // changed to blue for consistency
     marginBottom: '1rem',
     paddingBottom: '0.5rem',
     textAlign: 'center',
@@ -192,12 +194,12 @@ const styles = {
     marginTop: '2rem',
   },
   optionCard: {
-    background: '#f5f5f5',
+    background: '#f9fafb', // lighter card background
     borderRadius: '15px',
     padding: '1.5rem',
     width: '280px',
     textAlign: 'center',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
     cursor: 'pointer',
   },
   icon: {
@@ -206,7 +208,7 @@ const styles = {
   },
   optionTitle: {
     fontSize: '1.2rem',
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   optionDesc: {
     fontSize: '0.95rem',
@@ -216,9 +218,10 @@ const styles = {
     padding: '0.5rem 1rem',
     border: 'none',
     borderRadius: '30px',
-    backgroundColor: '#333',
+    backgroundColor: '#2563eb', // matches Welcome page primary button
     color: '#fff',
     cursor: 'pointer',
+    fontWeight: '700',
   },
   form: {
     display: 'grid',
@@ -245,21 +248,24 @@ const styles = {
     resize: 'vertical',
   },
   submitButton: {
-    backgroundColor: '#f1c40f',
+    backgroundColor: '#2563eb', // matches Welcome page button
     padding: '0.75rem 1.5rem',
     border: 'none',
     borderRadius: '30px',
     cursor: 'pointer',
     color: '#fff',
     fontSize: '1rem',
+    fontWeight: '700',
   },
   backButton: {
-    backgroundColor: '#ccc',
+    backgroundColor: '#64748b', // subtle gray-blue
     padding: '0.75rem 1.5rem',
     border: 'none',
     borderRadius: '30px',
     cursor: 'pointer',
     fontSize: '1rem',
+    color: '#fff',
+    fontWeight: '700',
   },
   buttonGroup: {
     gridColumn: '1 / -1',

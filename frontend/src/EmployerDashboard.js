@@ -48,7 +48,9 @@ export default function EmployerDashboard() {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
       .then((r) => r.json())
-      .then((j) => (j.status === "success" ? fetchProfiles() : alert("Failed to delete profile")))
+      .then((j) =>
+        j.status === "success" ? fetchProfiles() : alert("Failed to delete profile")
+      )
       .catch(() => alert("Server unreachable"));
   };
 
@@ -68,7 +70,7 @@ export default function EmployerDashboard() {
     return (
       (searchName === "" || (p.fullName ?? "").toLowerCase().includes(searchName.toLowerCase())) &&
       (searchCity === "" || (p.city ?? "").toLowerCase().includes(searchCity.toLowerCase())) &&
-      (searchTitle === "" || (p.ProfessionalTitle ?? "").toLowerCase().includes(searchTitle.toLowerCase())) &&
+      (searchTitle === "" || (p.professionalTitle ?? "").toLowerCase().includes(searchTitle.toLowerCase())) &&
       (searchEmail === "" || (p.email ?? "").toLowerCase().includes(searchEmail.toLowerCase())) &&
       (searchPhone === "" || (p.phone ?? "").toLowerCase().includes(searchPhone.toLowerCase())) &&
       (searchExperience === "" || profileExp >= expFilterNum)
@@ -97,6 +99,7 @@ export default function EmployerDashboard() {
         flexDirection: "column",
       }}
     >
+      {/* Header */}
       <header
         style={{
           display: "flex",
@@ -116,31 +119,27 @@ export default function EmployerDashboard() {
             Employer Dashboard
           </h1>
         </div>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
           <button style={blueButtonStyle} onClick={() => navigate("/employer-profile")}>
             Add Another Profile
           </button>
           <button
-  style={{
-    ...blueButtonStyle,
-    backgroundColor: "#4CAF50", // greenish tone for difference
-     padding: "10px 16px",
-    
-  }}
-  onClick={() => navigate("/allprojects")}
->
-  View All Projects
-</button>
+            style={{ ...blueButtonStyle, backgroundColor: "#4CAF50" }}
+            onClick={() => navigate("/allprojects")}
+          >
+            View All Projects
+          </button>
           <button style={redButtonStyle} onClick={handleLogout}>
             Logout
-          </button>   
+          </button>
         </div>
       </header>
 
+      {/* Search */}
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
           gap: "10px",
           padding: "1rem 2rem",
           backgroundColor: "rgba(255,255,255,0.1)",
@@ -233,41 +232,30 @@ export default function EmployerDashboard() {
                   )}
                 </div>
 
-               
-
-
-
-
-              
-<h3 style={{ margin: "0 0 6px" }}>{p.fullName}</h3>
-<p style={{ margin: "2px 0" }}><strong>Title:</strong> {p.professionalTitle }</p>
-<p style={{ margin: "2px 0" }}><strong>Experience:</strong> {p.experience || 0} yr</p>
-<p style={{ margin: "2px 0" }}><strong>City:</strong> {p.city || "—"}</p>
-<p style={{ margin: "2px 0" }}><strong> Qualification:</strong> {p.qualification}</p>
-
-
+                <h3 style={{ margin: "0 0 6px" }}>{p.fullName}</h3>
+                <p style={{ margin: "2px 0" }}><strong>Title:</strong> {p.professionalTitle}</p>
+                <p style={{ margin: "2px 0" }}><strong>Experience:</strong> {p.experience || 0} yr</p>
+                <p style={{ margin: "2px 0" }}><strong>City:</strong> {p.city || "—"}</p>
+                <p style={{ margin: "2px 0" }}><strong>Qualification:</strong> {p.qualification}</p>
 
                 {p.resume && (
                   <a
                     href={`http://localhost:5000/uploads/resumes/${p.resume}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{
-                      textDecoration: "none",
-                      color: "#2575fc",
-                      fontWeight: "bold",
-                    }}
+                    style={{ textDecoration: "none", color: "#2575fc", fontWeight: "bold" }}
                   >
                     📄 Download Resume
                   </a>
                 )}
+
+                {/* Buttons 2 per row */}
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "4px",
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "8px",
                     marginTop: "8px",
-                    flexWrap: "wrap",
                   }}
                 >
                   <button
@@ -306,6 +294,7 @@ export default function EmployerDashboard() {
             ))}
           </div>
 
+          {/* Pagination */}
           <div
             style={{
               display: "flex",
@@ -352,6 +341,7 @@ export default function EmployerDashboard() {
         </>
       )}
 
+      {/* Contact Modal */}
       {showModal && contactProfile && (
         <div
           style={{
@@ -380,104 +370,68 @@ export default function EmployerDashboard() {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-           
             <h2>Contact {contactProfile.fullName}</h2>
             <p>
               <strong>Email:</strong>{" "}
               <a href={`mailto:${contactProfile.email}`}>{contactProfile.email}</a>
             </p>
-            <p>
-              <strong>Alternate Phone:</strong> {contactProfile.alternatePhone}
-            </p>
-            <p>
-              <strong>Phone:</strong> {contactProfile.phone}
-            </p>
-
-          
-          
-
-
-
-
+            <p><strong>Alternate Phone:</strong> {contactProfile.alternatePhone}</p>
+            <p><strong>Phone:</strong> {contactProfile.phone}</p>
 
             <div
               style={{
                 display: "flex",
                 gap: "10px",
-                marginTop: "1rem",
+                marginTop: "1.5rem",
                 flexWrap: "wrap",
               }}
             >
-             
-
-
-
-  {/* Container wrapping Close and WhatsApp side by side */}
-<div
-  style={{
-    display: "flex",
-    gap: "10px",
-    marginTop: "1.5rem",
-    flexWrap: "wrap",
-  }}
->
-  <button
-    onClick={() => setShowModal(false)}
-    style={{
-      backgroundColor: "#2575fc",
-      color: "#fff",
-      border: "none",
-      padding: "10px 20px",
-      borderRadius: "8px",
-      cursor: "pointer",
-      fontWeight: "bold",
-      fontSize: "1rem",
-      flex: 1,               // Take equal available space
-      minWidth: "120px",
-    }}
-  >
-    Close
-  </button>
-
-  <a
-    href={`https://wa.me/?text=${encodeURIComponent(
-      `Check out this profile: ${window.location.origin}/view-profile/${contactProfile.id}`
-    )}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{
-      display: "inline-flex",
-      alignItems: "center",
-      gap: "10px",
-      backgroundColor: "#25D366",
-      color: "white",
-      padding: "10px 20px",
-      borderRadius: "8px",
-      fontSize: "1rem",
-      fontWeight: "bold",
-      textDecoration: "none",
-      boxShadow: "0 3px 10px rgba(37, 211, 102, 0.4)",
-      flex: 1,               // Take equal available space
-      minWidth: "120px",
-      justifyContent: "center",
-    }}
-    onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#128C7E")}
-    onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#25D366")}
-  >
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-      alt="WhatsApp"
-      style={{ width: 24, height: 24 }}
-    />
-    WhatsApp
-  </a>
-</div>
-
-
-
-
-
-              
+              <button
+                onClick={() => setShowModal(false)}
+                style={{
+                  backgroundColor: "#2575fc",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  flex: 1,
+                  minWidth: "120px",
+                }}
+              >
+                Close
+              </button>
+              <a
+                href={`https://wa.me/?text=${encodeURIComponent(
+                  `Check out this profile: ${window.location.origin}/view-profile/${contactProfile.id}`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  backgroundColor: "#25D366",
+                  color: "white",
+                  padding: "10px 20px",
+                  borderRadius: "8px",
+                  fontSize: "1rem",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  flex: 1,
+                  minWidth: "120px",
+                  justifyContent: "center",
+                }}
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                  alt="WhatsApp"
+                  style={{ width: 24, height: 24 }}
+                />
+                WhatsApp
+              </a>
             </div>
           </div>
         </div>
@@ -486,8 +440,7 @@ export default function EmployerDashboard() {
   );
 }
 
-// 🔘 Style Definitions
-
+// 🔘 Styles
 const inputStyle = {
   padding: "10px",
   borderRadius: "8px",

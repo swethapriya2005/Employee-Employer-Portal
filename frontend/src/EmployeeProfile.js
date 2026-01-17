@@ -1,85 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const responsiveStyles = {
-  container: {
-    maxWidth: "1200px",
-    margin: "30px auto",
-    padding: "20px",
-    borderRadius: "10px",
-    backgroundColor: "#f5f5f5",
-    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-    fontFamily: "sans-serif",
-    color: "#000",
-    width: "95%",
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap",
-    padding: "20px",
-    backgroundColor: "#1b5edc",
-    color: "#fff",
-    borderRadius: "10px 10px 0 0",
-  },
-  title: {
-    fontSize: "1.8rem",
-    fontWeight: "700",
-  },
-  navButtons: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "12px",
-    justifyContent: "center",
-  },
-  navButton: {
-    padding: "8px 16px",
-    backgroundColor: "#ffffff",
-    color: "#1b5edc",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-    fontWeight: "600",
-    fontSize: "0.9rem",
-  },
-  formRow: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "20px",
-    marginBottom: "20px",
-  },
-  field: {
-    flex: "1 1 250px",
-    display: "flex",
-    flexDirection: "column",
-  },
-  label: {
-    fontWeight: "600",
-    marginBottom: "6px",
-    fontSize: "0.9rem",
-  },
-  input: {
-    padding: "10px",
-    fontSize: "1rem",
-    border: "1px solid #ccc",
-    borderRadius: "6px",
-    width: "100%",
-  },
-  button: {
-    padding: "12px 24px",
-    fontSize: "1rem",
-    backgroundColor: "#1b5edc",
-    color: "#fff",
-    border: "none",
-    borderRadius: "6px",
-    cursor: "pointer",
-    fontWeight: "600",
-    width: "100%",
-    maxWidth: "300px",
-  },
-};
-
 const EmployeeProfile = () => {
   const navigate = useNavigate();
 
@@ -134,300 +55,253 @@ const EmployeeProfile = () => {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(to right, #6a11cb, #2575fc)",
-        color: "#fff",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {/* Header */}
-      
-
-       <header
+    <div style={{ fontFamily: "Inter, Arial", background: "#f8fafc" }}>
+      {/* HEADER */}
+      <header
         style={{
+          background: "linear-gradient(to right, #0f172a, #1e293b)",
+          padding: "1rem 2rem",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "1rem 2rem",
-          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          color: "#fff",
         }}
       >
-
-
-
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <img
             src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
             alt="Logo"
-            style={{ width: "40px", height: "40px", objectFit: "contain" }}
+            style={{ width: "40px", height: "40px" }}
           />
-          <h1 style={{ fontWeight: "bold", fontSize: "1.5rem", margin: 0 }}>
-            Employee Dashboard
-          </h1>
+          <h1>Employee Dashboard</h1>
         </div>
-        <div style={responsiveStyles.navButtons}>
-          <button style={responsiveStyles.navButton} onClick={() => navigate("/employee-profile")}>
-            Add Another Profile
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <button
+            className="btn-outline"
+            onClick={() => navigate("/employee-profile")}
+          >
+            Add Profile
           </button>
-          <button style={responsiveStyles.navButton} onClick={() => navigate("/my-profiles")}>
-            View My Profiles
+          <button
+            className="btn-outline"
+            onClick={() => navigate("/my-profiles")}
+          >
+            My Profiles
           </button>
-          <button style={responsiveStyles.navButton} onClick={handleLogout}>
+          <button className="btn-primary" onClick={handleLogout}>
             Logout
           </button>
         </div>
       </header>
 
-      {/* Form */}
-      <div style={responsiveStyles.container}>
+      {/* FORM SECTION */}
+      <section
+        style={{
+          maxWidth: "900px",
+          margin: "2rem auto",
+          padding: "2rem",
+          borderRadius: "14px",
+          background: "#fff",
+          boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
+        }}
+      >
+        <h2 style={{ textAlign: "center", color: "#2563eb" }}>
+          Add Your Profile
+        </h2>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           {/* Personal Info */}
-          <div style={responsiveStyles.formRow}>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Full Name</label>
-              <input
-                name="fullName"
-                value={form.fullName}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-                required
-              />
-            </div>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Age</label>
-              <input
-                name="age"
-                type="number"
-                value={form.age}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-                required
-              />
-            </div>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Gender</label>
-              <select
-                name="gender"
-                value={form.gender}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-                required
-              >
-                <option value="">Select</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
+            <input
+              style={inputStyle}
+              placeholder="Full Name"
+              name="fullName"
+              value={form.fullName}
+              onChange={handleChange}
+              required
+            />
+            <input
+              style={inputStyle}
+              placeholder="Age"
+              type="number"
+              name="age"
+              value={form.age}
+              onChange={handleChange}
+              required
+            />
+            <select
+              style={inputStyle}
+              name="gender"
+              value={form.gender}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
           </div>
 
           {/* Professional Info */}
-          <div style={responsiveStyles.formRow}>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>City</label>
-              <input
-                name="city"
-                value={form.city}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              />
-            </div>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Professional Title</label>
-              <select
-                name="professionalTitle"
-                value={form.professionalTitle}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              >
-                <option value="">Select Title</option>
-                <option value="Software Developer">Software Developer</option>
-                <option value="Marketing Specialist">Marketing Specialist</option>
-                <option value="Human Resources">Human Resources</option>
-                <option value="Project Manager">Project Manager</option>
-                <option value="Customer Support">Customer Support</option>
-                <option value="Sales Executive">Sales Executive</option>
-                <option value="UI/UX Designer">UI/UX Designer</option>
-                <option value="Data Analyst">Data Analyst</option>
-                <option value="Content Writer">Content Writer</option>
-                <option value="Cybersecurity Analyst">Cybersecurity Analyst</option>
-                <option value="Financial Analyst">Financial Analyst</option>
-                <option value="Frontend Developer">Frontend Developer</option>
-                <option value="Backend Developer">Backend Developer</option>
-                <option value="Full Stack Developer">Full Stack Developer</option>
-                <option value="DevOps Engineer">DevOps Engineer</option>
-              </select>
-            </div>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Qualification</label>
-              <select
-                name="qualification"
-                value={form.qualification}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              >
-                <option value="">Select Qualification</option>
-                <option value="High School Diploma">High School Diploma</option>
-                <option value="Bachelor's Degree">Bachelor's Degree</option>
-                <option value="Master's Degree">Master's Degree</option>
-                <option value="PhD">PhD</option>
-                <option value="Diploma">Diploma</option>
-                <option value="Certificate Course">Certificate Course</option>
-                <option value="Bootcamp Graduate">Bootcamp Graduate</option>
-              </select>
-            </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+            <input
+              style={inputStyle}
+              placeholder="City"
+              name="city"
+              value={form.city}
+              onChange={handleChange}
+            />
+            <select
+              style={inputStyle}
+              name="professionalTitle"
+              value={form.professionalTitle}
+              onChange={handleChange}
+            >
+              <option value="">Professional Title</option>
+              <option value="Software Developer">Software Developer</option>
+              <option value="Marketing Specialist">Marketing Specialist</option>
+              <option value="Project Manager">Project Manager</option>
+              <option value="UI/UX Designer">UI/UX Designer</option>
+              <option value="Data Analyst">Data Analyst</option>
+              <option value="DevOps Engineer">DevOps Engineer</option>
+            </select>
+            <select
+              style={inputStyle}
+              name="qualification"
+              value={form.qualification}
+              onChange={handleChange}
+            >
+              <option value="">Qualification</option>
+              <option value="High School Diploma">High School Diploma</option>
+              <option value="Bachelor's Degree">Bachelor's Degree</option>
+              <option value="Master's Degree">Master's Degree</option>
+              <option value="PhD">PhD</option>
+            </select>
           </div>
 
-          <div style={responsiveStyles.formRow}>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Experience (Years)</label>
-              <input
-                name="experience"
-                type="number"
-                value={form.experience}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              />
-            </div>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Phone No.</label>
-              <input
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              />
-            </div>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Alternate Phone</label>
-              <input
-                name="alternatePhone"
-                value={form.alternatePhone}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              />
-            </div>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Email</label>
-              <input
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              />
-            </div>
+          {/* Contact Info */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+            <input
+              style={inputStyle}
+              placeholder="Phone"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+            />
+            <input
+              style={inputStyle}
+              placeholder="Alternate Phone"
+              name="alternatePhone"
+              value={form.alternatePhone}
+              onChange={handleChange}
+            />
+            <input
+              style={inputStyle}
+              placeholder="Email"
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+            />
           </div>
 
-          <div style={responsiveStyles.formRow}>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Technical Languages</label>
-              <input
-                name="technicalLanguages"
-                value={form.technicalLanguages}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              />
-            </div>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>GitHub Link</label>
-              <input
-                name="githubLink"
-                type="url"
-                value={form.githubLink}
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              />
-            </div>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Profile Photo</label>
-              <input
-                name="profilePhoto"
-                type="file"
-                accept="image/*"
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              />
-            </div>
+          {/* Technical Info */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+            <input
+              style={inputStyle}
+              placeholder="Technical Languages"
+              name="technicalLanguages"
+              value={form.technicalLanguages}
+              onChange={handleChange}
+            />
+            <input
+              style={inputStyle}
+              placeholder="GitHub Link"
+              name="githubLink"
+              value={form.githubLink}
+              onChange={handleChange}
+            />
+            <input
+              style={inputStyle}
+              type="file"
+              name="profilePhoto"
+              accept="image/*"
+              onChange={handleChange}
+            />
           </div>
 
-          <div style={responsiveStyles.formRow}>
-            <div style={responsiveStyles.field}>
-              <label style={responsiveStyles.label}>Upload Resume</label>
-              <input
-                name="resume"
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleChange}
-                style={responsiveStyles.input}
-              />
-            </div>
+          <div style={{ marginTop: "1rem" }}>
+            <input
+              style={inputStyle}
+              type="file"
+              name="resume"
+              accept=".pdf,.doc,.docx"
+              onChange={handleChange}
+            />
           </div>
 
-          <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <button type="submit" style={responsiveStyles.button}>
+          <div style={{ textAlign: "center", marginTop: "2rem" }}>
+            <button className="btn-primary" type="submit">
               Submit Profile
             </button>
           </div>
         </form>
-      </div>
+      </section>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <footer
         style={{
-          backgroundColor: "#1a1a1a",
-          color: "#fff",
-          padding: "2rem 1rem",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          gap: "1rem",
+          background: "#020617",
+          color: "#cbd5e1",
+          padding: "3rem 2rem",
           textAlign: "center",
         }}
       >
-        <div>
-          <div style={{ fontSize: "1.5rem" }}>🌐</div>
-          <h3 style={{ marginTop: "0.5rem" }}>Our Address</h3>
-          <p>Hyderabad, Telangana - 50000.</p>
-        </div>
-        <div>
-          <div style={{ fontSize: "1.5rem" }}>📧</div>
-          <h3 style={{ marginTop: "0.5rem" }}>Our Mailbox</h3>
-          <p>@gmail.com</p>
-          <div style={{ marginTop: "0.5rem", fontSize: "1.5rem" }}>
-            <a href="#" aria-label="Twitter" style={{ margin: "0 0.5rem", color: "#fff" }}>
-              𝕏
-            </a>
-            <a href="#" aria-label="Facebook" style={{ margin: "0 0.5rem", color: "#fff" }}>
-              📘
-            </a>
-            <a href="#" aria-label="Instagram" style={{ margin: "0 0.5rem", color: "#fff" }}>
-              📸
-            </a>
-          </div>
-        </div>
-        <div>
-          <div style={{ fontSize: "1.5rem" }}>📞</div>
-          <h3 style={{ marginTop: "0.5rem" }}>Our Phone</h3>
-          <p>+91 </p>
-        </div>
+        <p>📍 Hyderabad, Telangana – 500000</p>
+        <p>📧 employeeemployer@gmail.com</p>
+        <p>📞 +91 XXXXX XXXXX</p>
+        <p style={{ marginTop: "1rem", fontSize: "0.9rem" }}>
+          © 2025 Employee Employer. All Rights Reserved.
+        </p>
       </footer>
 
-      <div
-        style={{
-          backgroundColor: "#111",
-          color: "#aaa",
-          textAlign: "center",
-          padding: "1rem",
-          fontSize: "0.9rem",
-        }}
-      >
-        <p>Copyright © 2025 . All Rights Reserved. | Designed by</p>
-      </div>
+      {/* BUTTON + INPUT STYLES */}
+      <style>{`
+        .btn-primary {
+          background: #2563eb;
+          border: none;
+          color: white;
+          padding: 0.7rem 1.8rem;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 700;
+        }
+        .btn-outline {
+          background: transparent;
+          border: 2px solid #2563eb;
+          color: #2563eb;
+          padding: 0.5rem 1.2rem;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 700;
+        }
+        input, select {
+          width: 100%;
+          padding: 10px;
+          border-radius: 8px;
+          border: 1px solid #ccc;
+        }
+      `}</style>
     </div>
   );
+};
+
+const inputStyle = {
+  flex: "1 1 200px",
+  marginBottom: "10px",
+  padding: "10px",
+  borderRadius: "8px",
+  border: "1px solid #ccc",
 };
 
 export default EmployeeProfile;
