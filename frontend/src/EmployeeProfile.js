@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const EmployeeProfile = () => {
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ const EmployeeProfile = () => {
           />
           <h1>Employee Dashboard</h1>
         </div>
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
           <button
             className="btn-outline"
             onClick={() => navigate("/employee-profile")}
@@ -88,6 +88,16 @@ const EmployeeProfile = () => {
           >
             My Profiles
           </button>
+
+          {/* ATS Resume Checker Link */}
+          <Link
+            to="/resume-checker"
+            className="btn-primary"
+            style={{ background: "#10b981" }}
+          >
+            Check Your Resume
+          </Link>
+
           <button className="btn-primary" onClick={handleLogout}>
             Logout
           </button>
@@ -143,7 +153,14 @@ const EmployeeProfile = () => {
           </div>
 
           {/* Professional Info */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "1rem",
+              marginTop: "1rem",
+            }}
+          >
             <input
               style={inputStyle}
               placeholder="City"
@@ -180,7 +197,14 @@ const EmployeeProfile = () => {
           </div>
 
           {/* Contact Info */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "1rem",
+              marginTop: "1rem",
+            }}
+          >
             <input
               style={inputStyle}
               placeholder="Phone"
@@ -206,7 +230,14 @@ const EmployeeProfile = () => {
           </div>
 
           {/* Technical Info */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginTop: "1rem" }}>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "1rem",
+              marginTop: "1rem",
+            }}
+          >
             <input
               style={inputStyle}
               placeholder="Technical Languages"

@@ -17,6 +17,11 @@ import StartHiring from "./StartHiring";
 import AllProjects from "./AllProjects";
 import EmployerDashboard from "./EmployerDashboard"; // import your dashboard
 
+import ResumeChecker from "./ResumeChecker";
+
+
+
+
 
 function App() {
   return (
@@ -25,6 +30,7 @@ function App() {
         {/* Redirect */}
         <Route path="/" element={<Navigate to="/welcome" />} />
 
+<Route path="/resume-checker" element={<ResumeChecker />} />
 
       
 <Route

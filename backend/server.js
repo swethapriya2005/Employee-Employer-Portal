@@ -11,6 +11,11 @@ const app = express();
 
 
 
+
+
+const resumeRoutes = require("./routes/resumeRoutes");
+
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/uploads/photos", express.static("uploads/photos"));
 
@@ -19,7 +24,14 @@ app.use("/uploads/photos", express.static("uploads/photos"));
 app.use(cors());
 app.use(express.json());
 
+
 app.use("/uploads/project_documents", express.static("uploads/project_documents"));
+
+
+
+
+app.use("/api", resumeRoutes);
+
 
 // Ensure upload directories exist
 const dirs = ["uploads/photos", "uploads/resumes","uploads/project_documents"];
@@ -55,6 +67,9 @@ const db = mysql.createConnection({
   password: process.env.DB_PASS || "",
   database: process.env.DB_NAME || "signup",
 });
+
+
+
 
 
 
